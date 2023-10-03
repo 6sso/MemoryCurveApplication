@@ -6,23 +6,27 @@ import numpy as np
 import datetime
 
 class Revision():
-    def __init__(self, p, g):
+    def __init__(self, p, g, num, h, h0):
         self.coeffp=p
         self.gaing=g
+        self.numero=num
+        self.heurerevi=h
+        self.heuredebut=h0
 
 
 
-
-def Ecrire(Revision):
-    start_time = 1696192419.772416 #Dimanche soir 01/10/2023
+def SegmentTime(Revision):
     current_time = datetime.datetime.now().timestamp()
 
-    t = np.arange(0., current_time-start_time, 0.1)
-    #t = np.arange(0., 1000000, 0.1)
-    F_t = np.exp(-t/Revision.coeffp)+Revision.gaing
+    return np.arange(Revision.heurerevi-Revision.heuredebut, current_time-Revision.heuredebut, 0.1)
 
-    plt.plot(t, F_t, label="Oubli(t) = e^-t/P + G")
-
+def Ecrire(Revision, Tab):#ici Revision est inutile
+    pente=[30,20,10]
+    gain=[2,3,4]
+    colors=['r','g','b', 'c', 'm', 'y', 'k', 'w']
+    for i in range(len(Tab)):
+        f = np.exp(-Tab[i]/pente[i]) + gain[i]
+        plt.plot(Tab[i], f, label=f"Courbe{i}", color=colors[i])
 
 
     plt.legend()
@@ -30,20 +34,15 @@ def Ecrire(Revision):
     plt.xlabel('t')
     axes = plt.gca()
     #axes.set_xlim(0, 3153600) #on définit l'axe x sur 1 an : 3153600 secondes
-    axes.set_xlim(0, 3600) #on définit l'axe sur 1 jour
+    axes.set_xlim(0, 24*7*3600) #on définit l'axe sur 1 jour
 
     plt.ylabel('Oubli(t)')
-    axes.set_ylim(3, 4)
+    axes.set_ylim(0, 10)
 
 
     plt.title('Tracé de la fonction oubli')
 
     plt.grid(True)
     plt.show()
-
-
-
-
-
 
 
