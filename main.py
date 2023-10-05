@@ -1,27 +1,61 @@
 
 from Classes import *
 
-#on commence avec un compteur du Nombre de Revision à 0
-NbRevision = 0
-h0 = 1696192419.772416 #Dimanche soir 01/10/2023
-h=h0 #à modifier
 
-#variables d'étape de révision : à chaque révision, on passe à la case d'après
-# avec des coefficients d'oublis plus faibles
-p=[30,20,10]
-g=[2,3,4]
+#h0 = 1696192419.772416 #Dimanche soir 01/10/2023
+h0=datetime.datetime.now().timestamp()
 
+Matieres=[]
 
 button=False
-if button==True: #si on appuie sur le bouton, on run tout le code sous cette ligne
-    NbRevision +=1
-    h=datetime.datetime.now().timestamp()
+button=bool(input("On appui sur le bouton ? Ou vous souhaitez juste consulter vos courbes "))
 
-francais=Revision(p[NbRevision], g[NbRevision], NbRevision,h, h0 )
+while button==True: #si on appuie sur le bouton, on run tout le code sous cette ligne
+    print("bouton appuyé !")
 
 
-TableauTime=[]
-TableauTime.append(SegmentTime(francais))
 
-#on apelle la fonction Ecrire qui va tracer la courbe en fonction des bons coefficients
-Ecrire(francais, TableauTime)
+
+    TabTimeVide=[]
+
+
+    N= int(input("Nouvelle matière ? 1OUI/0NON"))
+
+    if N :
+
+        nom = input("Entrez le nom de la matière à mémoriser : ")
+
+        globals()[f"{nom}"]=Revision(1,h0, h0, nom, TabTimeVide)
+        Matieres.append(globals()[f"{nom}"])
+        print(Matieres[0].nom)
+        matiere=globals()[f"{nom}"]
+        matiere.TabTime.append(h)
+    else :
+        print("Voici vos matières, choisissez en entrant le numéro : ")
+        for i in range(len(Matieres)):
+            print(i+1, Matieres[i].nom)
+
+        Index=int(input("Entrez le numéro de la matière : "))
+        matiere=Matieres[Index-1]
+
+        h=datetime.datetime.now().timestamp()
+        matiere.heurerevi=h#1
+        matiere.num+=1 #1
+        matiere.TabTime.append(h) #2
+
+    1FICHIER ECRIRE (matiere.nom, matiere.heurerevi, matiere.num)
+    2FICHIER ECRIRE (matiere.nom , matiere.TabTime )
+
+
+
+
+
+
+
+    #On apelle la fonction Ecrire qui va tracer la courbe en fonction des bons coefficients
+    Ecrire(matiere)
+
+    button=bool(input("Une autre matière ? "))
+
+for i in range(NOMBRE DE 1 dans la colonne num du FICHIER)
+    Ecrire(FICHIER.nom, .heurerevi , .num)
