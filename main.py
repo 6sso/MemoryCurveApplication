@@ -1,5 +1,5 @@
 import pickle
-import json
+
 from Classes import *
 
 
@@ -13,14 +13,13 @@ except EOFError:
     Matieres=[]
 
 button=False
-button=int(input("On appui sur le bouton ? Ou vous souhaitez juste consulter vos courbes 1OUI/0NON "))
+button=int(input("1 : AJOUTER UNE REVISION    0 : CONSULTATION DES COURBES"))
 
 while button==1: #si on appuie sur le bouton, on run tout le code sous cette ligne
-    print("bouton appuyé !")
 
     TabTimeVide=[]
 
-    N= int(input("Nouvelle matière ? 1OUI/0NON"))
+    N= int(input("Nouvelle matière ?      1 : OUI   0 : NON"))
 
     if N :
 
@@ -38,7 +37,7 @@ while button==1: #si on appuie sur le bouton, on run tout le code sous cette lig
             pickle.dump(Matieres, fichier2)
 
     else :
-        print("Voici vos matières, choisissez en entrant le numéro : ")
+        print("Voici vos matières : ")
         for i in range(len(Matieres)):
             print(i+1, Matieres[i].nom)
 
@@ -51,12 +50,16 @@ while button==1: #si on appuie sur le bouton, on run tout le code sous cette lig
         Matieres[Index-1]=matiere #Peut être pas obligé de mettre ca, à verifier
         with open('BDD.pkl', 'wb') as fichier2:
             pickle.dump(Matieres, fichier2)
+        print(f"{matiere.nom} mis à jour")
 
 
-    button=int(input("Une autre matière ? 1OUI/0NON "))
+    button=int(input("Une autre matière ?      1 : OUI   0 : NON"))
 
 
 with open("BDD.pkl", "rb") as fichier2:
     MatieresMaj = pickle.load(fichier2)
 for i in range(len(MatieresMaj)):
     Ecrire(MatieresMaj[i])
+
+
+#Equation de la fonction oubli : https://www.super-memory.com/english/2vm.htm
