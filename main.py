@@ -56,10 +56,14 @@ while button==1: #si on appuie sur le bouton, on run tout le code sous cette lig
     button=int(input("Une autre matière ?      1 : OUI   0 : NON"))
 
 
-with open("BDD.pkl", "rb") as fichier2:
-    MatieresMaj = pickle.load(fichier2)
-for i in range(len(MatieresMaj)):
-    Ecrire(MatieresMaj[i])
+try:
+    with open("BDD.pkl", "rb") as fichier2:
+        MatieresMaj = pickle.load(fichier2)
+        for i in range(len(MatieresMaj)):
+            Ecrire(MatieresMaj[i])
+
+except EOFError:
+    print("Fichier vide")
 
 
-#Equation de la fonction oubli : https://www.super-memory.com/english/2vm.htm
+
