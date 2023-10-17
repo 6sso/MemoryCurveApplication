@@ -19,7 +19,10 @@ while button==1: #si on appuie sur le bouton, on run tout le code sous cette lig
 
     TabTimeVide=[]
 
-    N= int(input("Nouvelle matière ?      1 : OUI   0 : NON"))
+    if len(Matieres)!=0:
+        N= int(input("Nouvelle matière ?      1 : OUI   0 : NON"))
+    else :
+        N=1
 
     if N :
 

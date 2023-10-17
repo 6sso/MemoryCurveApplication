@@ -18,10 +18,10 @@ def conversiontime(secondes):
     min = int(secondes/60)
     h = int(min/60)
     j = int(h/24)
-    mois = int(j/30,436875)
+    mois = int(j/30.436875)
     restmin = min%60
     resth = h%24
-    restj = j%30,436875
+    restj = int(j%30.436875)
     return mois, restj, resth, restmin
 
 
@@ -30,7 +30,7 @@ def conversiontime(secondes):
 
 
 def secondes_a_heures(x, pos):
-    return f"{int(x/(3600))} h {int((x*(3600))/60)} min "
+    return f"{int(x/(3600))} h {int((x%(3600))/60)} min "
 def secondes_a_jours(x, pos):
     return f"{int(x/(3600*24))} j {int((x%(3600*24))/3600)} h"
 def secondes_a_mois(x, pos):
@@ -52,15 +52,26 @@ def Ecrire(Matiere):
 
     plt.figure(figsize=(10, 8))
 
+    pointsy=[0,100]
 
     for i in range(len(Matiere.TabTime)-1):
         t = np.arange(Matiere.TabTime[i]-Matiere.TabTime[0], Matiere.TabTime[i+1]-Matiere.TabTime[0], 0.1)
         f = 100*np.exp(((t-(Matiere.TabTime[i]-Matiere.TabTime[0]))*np.log(K)/(C1*C2**i)))
         plt.plot(t, f, label=f"Révision n°{i}", color=colors[i])
+        if (i ==0):
+            pass
+        else :
+            tconst = int(Matiere.TabTime[i]-Matiere.TabTime[0])
+            plt.plot( [tconst,tconst] , pointsy, color = colors[i+1])
+
+
+
 
     x = np.linspace(0, 2*(temps_ecoule), 30)
     seuil=np.ones_like(x)*100*K
     plt.plot(x,seuil,'k--', label = "Seuil")
+
+
 
     timer = (C1*C2**i)-(temps_ecoule)
     if timer>0 :
@@ -71,10 +82,13 @@ def Ecrire(Matiere):
     plt.legend(loc = 'upper right')
 
 
-    if temps_ecoule < 3600*24 :
+    if temps_ecoule < 3600*12 :
+        print("affichage heure")
         format = FuncFormatter(secondes_a_heures)
     elif temps_ecoule < 1.5 * 3600*24*30.436875 : #après 1 mois et demi l'unité de légende du temps devient le mois
         format = FuncFormatter(secondes_a_jours)
+        print("affichage jour")
+
     else :
         format = FuncFormatter(secondes_a_mois)
 
@@ -90,7 +104,7 @@ def Ecrire(Matiere):
     axes.xaxis.set_major_formatter(format)
 
     plt.ylabel('% Memorisé')
-    axes.set_ylim(0, 100)
+    axes.set_ylim(60, 100)
 
 
     plt.title(f'Tracé de la fonction oubli pour la matière {Matiere.nom}')
