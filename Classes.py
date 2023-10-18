@@ -52,17 +52,21 @@ def Ecrire(Matiere):
 
     plt.figure(figsize=(10, 8))
 
-    pointsy=[0,100]
+    #pointsy=[90,100]
 
     for i in range(len(Matiere.TabTime)-1):
         t = np.arange(Matiere.TabTime[i]-Matiere.TabTime[0], Matiere.TabTime[i+1]-Matiere.TabTime[0], 0.1)
         f = 100*np.exp(((t-(Matiere.TabTime[i]-Matiere.TabTime[0]))*np.log(K)/(C1*C2**i)))
         plt.plot(t, f, label=f"Révision n°{i}", color=colors[i])
-        if (i ==0):
+        print(f)
+        if (i==0):
             pass
         else :
+            binf = 100*np.exp(((Matiere.TabTime[i+1]-Matiere.TabTime[i-1])*np.log(K)/(C1*C2**(i-1))))
+
+            pointsy=[binf,100]
             tconst = int(Matiere.TabTime[i]-Matiere.TabTime[0])
-            plt.plot( [tconst,tconst] , pointsy, color = colors[i+1])
+            plt.plot( [tconst,tconst] , pointsy, f'{colors[i]}--')
 
 
 
@@ -104,7 +108,7 @@ def Ecrire(Matiere):
     axes.xaxis.set_major_formatter(format)
 
     plt.ylabel('% Memorisé')
-    axes.set_ylim(60, 100)
+    axes.set_ylim(0, 100)
 
 
     plt.title(f'Tracé de la fonction oubli pour la matière {Matiere.nom}')
