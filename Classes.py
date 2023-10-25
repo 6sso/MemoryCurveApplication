@@ -7,6 +7,7 @@ from matplotlib.ticker import FuncFormatter
 import numpy as np
 import datetime
 
+
 class Revision():
     def __init__(self, num, nom, TabTime):
         self.numero=num
@@ -41,6 +42,7 @@ def secondes_a_mois(x, pos):
 
 
 def Ecrire(Matiere):
+
     C2 = 3 #Interval n = C2 * Interval n-1
     C1 = 3600*1.5 #Durée en seconde avant la première révision
     K = 0.8 #Pourcentage Minimum avant qu'on passe à la prochaine révision
@@ -62,7 +64,7 @@ def Ecrire(Matiere):
         if (i==0):
             pass
         else :
-            binf = 100*np.exp(((Matiere.TabTime[i+1]-Matiere.TabTime[i-1])*np.log(K)/(C1*C2**(i-1))))
+            binf = 100*np.exp(((Matiere.TabTime[i]-Matiere.TabTime[i-1])*np.log(K)/(C1*C2**(i-1))))
 
             pointsy=[binf,100]
             tconst = int(Matiere.TabTime[i]-Matiere.TabTime[0])
@@ -103,7 +105,7 @@ def Ecrire(Matiere):
     axes = plt.gca()
     #axes.set_xlim(0, 3153600) #on définit l'axe x sur 1 an : 3153600 secondes
     #axes.set_xlim(0, 3600*24*7) #on définit l'axe sur 1 semaine
-    axes.set_xlim(0,2*(temps_ecoule))
+    axes.set_xlim(0,1*(temps_ecoule))
 
     axes.xaxis.set_major_formatter(format)
 
@@ -114,7 +116,9 @@ def Ecrire(Matiere):
     plt.title(f'Tracé de la fonction oubli pour la matière {Matiere.nom}')
 
     plt.grid(False)
+    plt.savefig("test.png")
     plt.show()
+
 
 
 #Equation de la fonction oubli : https://www.super-memory.com/english/2vm.htm
