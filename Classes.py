@@ -41,7 +41,7 @@ def secondes_a_mois(x, pos):
 
 
 
-def Ecrire(Matiere):
+def Ecrire(Matiere,indice):
 
     C2 = 3 #Interval n = C2 * Interval n-1
     C1 = 3600*1.5 #Durée en seconde avant la première révision
@@ -69,6 +69,9 @@ def Ecrire(Matiere):
             pointsy=[binf,100]
             tconst = int(Matiere.TabTime[i]-Matiere.TabTime[0])
             plt.plot( [tconst,tconst] , pointsy, f'{colors[i]}--')
+            timer = (C1*C2**i)-(temps_ecoule)
+
+
 
 
 
@@ -79,7 +82,6 @@ def Ecrire(Matiere):
 
 
 
-    timer = (C1*C2**i)-(temps_ecoule)
     if timer>0 :
         plt.text((temps_ecoule/10), 10, f"prochaine révision conseillée dans {conversiontime(int(timer))[0]} mois, {conversiontime(int(timer))[1]} jours, {conversiontime(int(timer))[2]} heures, {conversiontime(int(timer))[3]} minutes ")
     else :
@@ -116,7 +118,7 @@ def Ecrire(Matiere):
     plt.title(f'Tracé de la fonction oubli pour la matière {Matiere.nom}')
 
     plt.grid(False)
-    plt.savefig("test.png")
+    plt.savefig(f"static/images/chart{indice}.png", transparent = True, edgecolor = "r")
     plt.show()
 
 

@@ -63,7 +63,7 @@ try:
     with open("BDD.pkl", "rb") as fichier2:
         MatieresMaj = pickle.load(fichier2)
         for i in range(len(MatieresMaj)):
-            Ecrire(MatieresMaj[i])
+            Ecrire(MatieresMaj[i],i)
 
 except EOFError:
     print("Fichier vide")
