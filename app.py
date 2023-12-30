@@ -3,11 +3,12 @@ from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask import render_template
+import os
 
 app = Flask(__name__)
 #CORS(app)  # autorise toutes les origines pour simplifier
 
-@app.route("/") #On définit une route avec entre guillemets le chemin de cette route.
+@app.route('/') #On définit une route avec entre guillemets le chemin de cette route.
 # ici c'est notre page d'accueil donc on met juste un /
 def home():
     #return "<h1>hello world</h1>"

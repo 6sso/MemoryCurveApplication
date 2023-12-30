@@ -55,6 +55,7 @@ def Ecrire(Matiere,indice):
     plt.figure(figsize=(10, 8))
 
     #pointsy=[90,100]
+    timer = (C1*C2**0)-temps_ecoule
 
     for i in range(len(Matiere.TabTime)-1):
         t = np.arange(Matiere.TabTime[i]-Matiere.TabTime[0], Matiere.TabTime[i+1]-Matiere.TabTime[0], 0.1)
