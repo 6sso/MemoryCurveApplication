@@ -1,8 +1,8 @@
+# -*- coding: utf-8 -*-
+
 import pickle
 
-
 from Classes import *
-
 
 #h0 = 1696192419.772416 #Dimanche soir 01/10/2023
 

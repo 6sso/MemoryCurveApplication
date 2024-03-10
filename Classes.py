@@ -61,7 +61,8 @@ def Ecrire(Matiere,indice):
         t = np.arange(Matiere.TabTime[i]-Matiere.TabTime[0], Matiere.TabTime[i+1]-Matiere.TabTime[0], 0.1)
         f = 100*np.exp(((t-(Matiere.TabTime[i]-Matiere.TabTime[0]))*np.log(K)/(C1*C2**i)))
         plt.plot(t, f, label=f"Révision n°{i}", color=colors[i])
-        print(f)
+        #print(f)
+        print(t)
         if (i==0):
             pass
         else :
@@ -92,11 +93,11 @@ def Ecrire(Matiere,indice):
 
 
     if temps_ecoule < 3600*12 :
-        print("affichage heure")
+        #print("affichage heure")
         format = FuncFormatter(secondes_a_heures)
     elif temps_ecoule < 1.5 * 3600*24*30.436875 : #après 1 mois et demi l'unité de légende du temps devient le mois
         format = FuncFormatter(secondes_a_jours)
-        print("affichage jour")
+        #print("affichage jour")
 
     else :
         format = FuncFormatter(secondes_a_mois)
